@@ -1,5 +1,5 @@
 {% set name = "citeproc-py" %}
-{% set version = "0.10.3" %}
+{% set version = "0.10.4" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/citeproc_py-{{ version }}.tar.gz
-  sha256: 2dc70697095eee1ba221b2cfe50767ff30e214ab40d3c918228b2abccd3a45c1
+  sha256: da66ca7228a18d23aacb5994320683c52e49f0d9fc5e2644ad7cca774247404e
 
 build:
   script: {{ PYTHON }} -m pip install . -vv
@@ -15,13 +15,16 @@ build:
 
 requirements:
   build:
-    - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - python                                 # [build_platform != target_platform]
+    - lxml                                   # [build_platform != target_platform]
   host:
+    - lxml
     - pip
-    - setuptools
     - python
     - rnc2rng >=2.6.1,!=2.6.2
+    - setuptools
+    - versioneer
   run:
     - lxml
     - python
